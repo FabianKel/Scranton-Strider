@@ -1,36 +1,25 @@
-using System;
 using UnityEngine;
 
-public abstract class Pickup : MonoBehaviour
+public abstract class Pickup<T> : MonoBehaviour where T : PickupData
 {
-    [Header("General Info")]
-    public string ItemName;
-    public string Description;
-    public string Type;
-    public Sprite ItemIcon;
-
-    [SerializeField] public AudioClip pickupSound;
-
-    public static event Action<Pickup> OnPickupCollected;
-
-    public void Collect()
-    {
-        Use();
-        //OnPickupCollected.Invoke(this);
-        Destroy(gameObject);
-
-    }
+    [SerializeField] protected T data;
 
     protected virtual void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             Collect();
         }
     }
 
+    public void Collect()
+    {
+        if (data.pickupSound != null && AudioManager.Instance != null)
+            AudioManager.Instance.PlaySFX(data.pickupSound);
+
+        Use();
+        Destroy(gameObject);
+    }
+
     protected abstract void Use();
-
-
-
 }

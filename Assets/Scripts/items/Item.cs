@@ -1,31 +1,13 @@
 using System;
 using UnityEngine;
 
-public class Item : Pickup
+public class Item : Pickup<ItemData>
 {
-
-    [Header("Stats")]
-    public int Speed;
-
     protected override void Use()
     {
-        Guardar();
-    }
+        EventManager.Instance?.TriggerItemTaken(data.ItemName, data.Speed);
+        FindAnyObjectByType<LevelManager>().SaveOnInventory(data.ItemName, data.ItemIcon);
 
-    private void Guardar()
-    {
-
-        if (EventManager.Instance != null)
-        {
-            EventManager.Instance.TriggerItemTaken(ItemName, Speed);
-            FindAnyObjectByType<LevelManager>().SaveOnInventory(ItemName, ItemIcon);
-
-            Debug.Log($"Has recogido {ItemName}: {Description}.");
-        }
-
-        if (AudioManager.Instance != null)
-        {
-            AudioManager.Instance.PlaySFX(pickupSound);
-        }
+        Debug.Log($"Has recogido {data.ItemName}: {data.Description}.");
     }
 }

@@ -115,15 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45edbd7fbc270d54b9b3fc54936383e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Food
-  ItemName: Water
-  Description: awa
-  Type: Food
-  Icon: {fileID: 0}
-  pickupSound: {fileID: 8300000, guid: 066c90d19500def4fb34bbfe8895a60d, type: 3}
-  carbs: 0
-  protein: 0
-  fat: 0
-  hydration: 30
+  data: {fileID: 11400000, guid: 44134d9b2e2d0fa4081575a5b38b6b35, type: 2}
 --- !u!136 &668734896714372761
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -23,7 +23,7 @@ public class LevelManager : MonoBehaviour
     [Header("Configuración")]
     [SerializeField] float timeLimit = 30f;
     [SerializeField] int gearNeededCount = 3;
-    [SerializeField] int maxStatValue = 70;
+    [SerializeField] int maxStatValue = 100;
 
     private List<string> inventoryItems = new List<string>();
     private int totalCarbs, totalProtein, totalFat, totalHydration;
@@ -91,22 +91,22 @@ public class LevelManager : MonoBehaviour
 
         if (inventoryItems.Count < gearNeededCount)
         {
-            finalMessage = "Michael no pudo participar por no tener el equipo completo (Kit, Gorra, Tennis).";
+            finalMessage = "Michael no pudo participar por falta de equipo.";
         }
-        else if (totalHydration < maxStatValue)
+        else if (totalHydration < 70)
         {
-            finalMessage = "Michael se desmayó por deshidratación a mitad de la carrera. ¡El agua es importante!";
+            finalMessage = $"Michael se desmayó. Hidratación: {totalHydration}/100. ¡El agua es vida!";
         }
-        else if (totalCarbs > maxStatValue || totalFat > maxStatValue)
+        else if (totalCarbs >= maxStatValue || totalFat >= maxStatValue)
         {
-            finalMessage = "Michael vomitó en el asfalto. ¡Demasiado Fettuccine Alfredo antes de correr!";
+            finalMessage = "¡BLARGH! Michael vomitó el Fettuccine en el asfalto. Demasiada comida.";
         }
-        else if (totalProtein < 40)
+        else if (totalProtein < 50)
         {
-            finalMessage = "Sus piernas no aguantaron. Michael se quedó tirado a pocos metros de la meta.";
+            finalMessage = "Sus piernas fallaron. Le faltó proteína para aguantar el ritmo.";
         }
 
-        else if (totalCarbs >= 50 && totalProtein >= 50)
+        else if (totalCarbs >= 70 && totalProtein >= 60)
         {
             finalMessage = "¡INCREÍBLE! Michael terminó la carrera. No ganó, pero terminó.";
         }
@@ -116,7 +116,6 @@ public class LevelManager : MonoBehaviour
         }
 
         ResultText.text = finalMessage;
-        Debug.Log("RESULTADO: " + finalMessage);
     }
 
     private void UpdateInventoryUI(Sprite newIcon)
