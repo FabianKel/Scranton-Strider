@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RunsScreenController : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class RunsScreenController : MonoBehaviour
     [SerializeField] Transform container;
     [SerializeField] GameObject entryPrefab;
     [SerializeField] TextMeshProUGUI screenTitle;
+    [SerializeField] ScrollRect scrollRect;
 
     private void OnEnable()
     {
@@ -26,18 +28,20 @@ public class RunsScreenController : MonoBehaviour
         }
     }
 
+
     public void ShowHistory()
     {
         screenTitle.text = "RUN HISTORY";
         CleanContainer();
         List<Result> history = PersistenceManager.Instance.LoadHistory();
-
         history.Reverse();
 
         foreach (var res in history)
         {
             InstantiateEntry(res, true);
         }
+
+        if (scrollRect != null) scrollRect.verticalNormalizedPosition = 1f;
     }
 
     private void InstantiateEntry(Result data, bool isHistory)

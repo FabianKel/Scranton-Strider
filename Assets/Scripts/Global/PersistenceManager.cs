@@ -21,7 +21,8 @@ public class PersistenceManager : MonoBehaviour
     {
         List<Result> history = LoadHistory();
         history.Add(runData);
-        File.WriteAllText(historyPath, JsonHelper.ToJson(history.ToArray(), true));
+        string json = JsonHelper.ToJson(history.ToArray(), true);
+        File.WriteAllText(historyPath, json);
     }
 
     public List<Result> LoadHistory()
@@ -52,12 +53,12 @@ public class PersistenceManager : MonoBehaviour
     {
         List<Result> defaults = new List<Result>
         {
-            new Result("NO_GEAR", "The Dundie Failure", "Michael didn't even have running shoes.", "Lack of basic equipment."),
-            new Result("DEHYDRATED", "The Desert Spirit", "Michael collapsed. Water is life!", "Critical dehydration."),
-            new Result("VOMIT", "Fettuccine Incident", "BLARGH! Too much Alfredo sauce...", "Stomach overload."),
-            new Result("NO_PROTEIN", "Weak Knees", "His legs gave out like a folding chair.", "Insufficient protein."),
-            new Result("WIN", "The Rabies Run", "He finished! Not first, but he finished.", "Optimal nutrition."),
-            new Result("WALK", "The Lazy Walk", "He basically walked it. Just like a Monday morning.", "Low energy.")
+            new Result("NO_GEAR", "The Dundie Failure", "Michael didn't even have running shoes.", "Lack of basic equipment."){ Locked = true },
+            new Result("DEHYDRATED", "The Desert Spirit", "Michael collapsed. Water is life!", "Critical dehydration."){ Locked = true },
+            new Result("VOMIT", "Fettuccine Incident", "BLARGH! Too much Alfredo sauce...", "Stomach overload."){ Locked = true },
+            new Result("NO_PROTEIN", "Weak Knees", "His legs gave out like a folding chair.", "Insufficient protein."){ Locked = true },
+            new Result("WIN", "The Rabies Run", "He finished! Not first, but he finished.", "Optimal nutrition."){ Locked = true },
+            new Result("WALK", "The Lazy Walk", "He basically walked it. Just like a Monday morning.", "Low energy."){ Locked = true }
         };
         File.WriteAllText(resultsPath, JsonHelper.ToJson(defaults.ToArray(), true));
         return defaults;
